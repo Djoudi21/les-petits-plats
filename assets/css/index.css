@@ -1,0 +1,204 @@
+@import './hero.css';
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-size: 1rem;
+}
+
+h3 {
+    color: #000;
+    font-family: Anton, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+h6 {
+    color: #7A7A7A;
+    font-family: Manrope, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.08px;
+    text-transform: uppercase;
+}
+
+p {
+    color: #1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.recipes-section {
+    border: 2px solid red;
+    background: #EDEDED;
+    padding: 102px
+}
+
+#recipes-container {
+
+}
+
+.recipe-item {
+    background: #FFFFFF;
+    min-height: 200px;
+    border-radius: 10px;
+    /*padding:21px;*/
+    box-shadow: 0 4px 34px 30px rgba(0, 0, 0, 0.04);
+    /*width: 380px;*/
+    height: 731px;
+  }
+
+.recipe-item-image{
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    max-width: 100%;
+    height: 33%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /*background: url('../images/Recette01.jpg'), lightgray 50% / cover no-repeat;*/
+}
+
+.toto {
+    display: flex;
+    flex-direction: column;
+    height: 67%;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 25px;
+    justify-content: space-evenly;
+}
+
+.titi {
+    color:#7A7A7A;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.tata {
+    font-weight: 500;
+}
+
+.ingredient {
+    color:#1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 45%;
+    display: inline-block;
+}
+
+.clamped-content {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+}
+
+.gap {
+    gap: 48px
+}
+
+.flex {
+    display: flex;
+}
+
+.text-left {
+    text-align: left;
+}
+
+
+#tags-container {
+    display: none;
+}
+
+#dropdowns {
+    display: flex;
+    gap: 66px;
+    padding-left: 12px;
+}
+
+.dropdown-toggle {
+    color: #1B1B1B;
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 10px;
+    background: #FFF;
+    padding: 17px 16px;
+    width: 195px;
+}
+
+.dropdown-menu {
+    width: 195px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+#dropdownMenuButton[aria-expanded="true"] {
+    background-color: #FFF;
+    border: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+}
+
+.dropdown-label {
+    margin-right: 63px;
+}
+
+.dropdown-input-container {
+    margin: 0 11px 11px 11px;
+    border: 1px solid #C6C6C6;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-input-field {
+    border: none;
+    width: 130px;
+    height: 36px;
+}
+
+.dropdown-input-field:focus {
+    outline: none !important;
+    padding: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.reset-icon:hover {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}
