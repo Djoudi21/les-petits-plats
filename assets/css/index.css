@@ -40,6 +40,19 @@ p {
     font-weight: 400;
     line-height: normal;
 }
+
+ul {
+    padding: 0;
+}
+
+a {
+    margin: 0;
+}
+/*a {*/
+/*    text-decoration: none;*/
+/*    margin-bottom: 13px;*/
+/*    margin-left: 16px;*/
+/*}*/
 .recipes-section {
     border: 2px solid red;
     background: #EDEDED;
@@ -54,9 +67,7 @@ p {
     background: #FFFFFF;
     min-height: 200px;
     border-radius: 10px;
-    /*padding:21px;*/
     box-shadow: 0 4px 34px 30px rgba(0, 0, 0, 0.04);
-    /*width: 380px;*/
     height: 731px;
   }
 
@@ -126,47 +137,71 @@ p {
     text-align: left;
 }
 
+/*#dropdowns {*/
+/*    display: flex;*/
+/*    gap: 66px;*/
+/*    padding-left: 12px;*/
+/*}*/
 
-#tags-container {
-    display: none;
-}
+/*.dropdown-toggle {*/
+/*    color: #1B1B1B;*/
+/*    font-family: Manrope;*/
+/*    font-size: 16px;*/
+/*    font-style: normal;*/
+/*    font-weight: 500;*/
+/*    line-height: normal;*/
+/*    border-radius: 10px;*/
+/*    background: #FFF;*/
+/*    padding: 17px 16px;*/
+/*    width: 195px;*/
+/*}*/
 
-#dropdowns {
-    display: flex;
-    gap: 66px;
-    padding-left: 12px;
-}
+/*.dropdown-menu {*/
+/*    width: 195px;*/
+/*    border-top-right-radius: 0;*/
+/*    border-top-left-radius: 0;*/
+/*}*/
 
-.dropdown-toggle {
-    color: #1B1B1B;
-    font-family: Manrope;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    border-radius: 10px;
+/*#dropdownMenuButton[aria-expanded="true"] {*/
+/*    background-color: #FFF;*/
+/*    border: none;*/
+/*    border-bottom-left-radius: 0;*/
+/*    border-bottom-right-radius: 0;*/
+/*    margin-bottom: 0;*/
+/*}*/
+
+.dropdown-item-container {
     background: #FFF;
-    padding: 17px 16px;
-    width: 195px;
+    border-right: 1px;
+    padding: 10px;
+    border-radius: 11px;
+    margin-right: 40px;
+    width: 250px;
 }
 
-.dropdown-menu {
-    width: 195px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+.dropdown-item-ingredients {
+    color: #1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    margin-bottom: 13px;
+    margin-left: 16px;
 }
 
-#dropdownMenuButton[aria-expanded="true"] {
-    background-color: #FFF;
-    border: none;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    margin-bottom: 0;
+li {
+    list-style: none;
 }
 
-.dropdown-label {
-    margin-right: 63px;
+.dropdown-item-ingredients:hover {
+    cursor: pointer;
 }
+
+/*.dropdown-label {*/
+/*    margin-right: 63px;*/
+/*}*/
 
 .dropdown-input-container {
     margin: 0 11px 11px 11px;
@@ -176,16 +211,17 @@ p {
     gap: 5px;
 }
 
-.dropdown-input-field {
-    border: none;
-    width: 130px;
-    height: 36px;
+.tags-input {
+    border: 1px solid red;
+    padding: 5px;
+    margin: 5px;
+
 }
 
-.dropdown-input-field:focus {
-    outline: none !important;
-    padding: 5px;
-}
+/*.dropdown-input-field:focus {*/
+/*    outline: none !important;*/
+/*    padding: 5px;*/
+/*}*/
 
 .hidden {
     display: none;
@@ -201,4 +237,11 @@ p {
 
 .cursor-pointer:hover {
     cursor: pointer;
+}
+
+
+.ingredient-input-container {
+    display: flex;
+    flex-direction: column;
+    background: #FFF;
 }

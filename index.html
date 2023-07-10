@@ -33,57 +33,51 @@
         <div id="tags-container" class="mb-3"></div>
 
         <!-- Ingredients DD -->
-        <div id="dropdowns" class="btn-group mb-3">
-          <div class="dropdown">
-            <button
-                    id="dropdownMenuButton"
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-            >
-              <span class="dropdown-label ">Ingredients</span>
-            </button>
-            <ul class="dropdown-menu" id="tags-ingredients">
+        <div class="btn-group mb-3">
+          <div class="dropdown-item-container">
+              <div class="ingredient-input-container">
+                  <div>
+                      <label for="ingredients-input">Ingredients</label>
+                      <span>toto</span>
+                  </div>
+                  <input class="tags-input" id="ingredients-input" type="text">
+              </div>
+
+            <ul class="" id="tags-ingredients">
             </ul>
           </div>
           &nbsp;
 
           <!-- Appliances DD -->
-          <div class="dropdown">
-            <button
-                    class="btn btn-success dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-            >
-              Appliances
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+          <div class="dropdown-item-container">
+              <div class="appliance-input-container">
+                  <div>
+                      <label for="appliances-input">Appliances</label>
+                      <span>toto</span>
+                  </div>
+                  <input class="tags-input" id="appliances-input" type="text">
+              </div>
+                <ul class="" id="tags-appliances">
+                </ul>
           </div>
           &nbsp;
 
-          <!-- USTENSILS DD -->
-          <div class="dropdown">
-            <button
-                    class="btn btn-danger dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-            >
-              Ustensils
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
+            <!-- USTENSILS DD -->
+            <div class="dropdown-item-container">
+                <div class="ustensil-input-container">
+                    <div>
+                        <label for="ustensils-input">Ustensils</label>
+                        <span>toto</span>
+                    </div>
+                    <input class="tags-input" id="ustensils-input" type="text">
+                </div>
+                <ul class="" id="tags-ustensils">
+
+                </ul>
+            </div>
         </div>
+
+
         <div id="recipes-container"></div>
       </section>
     </main>
