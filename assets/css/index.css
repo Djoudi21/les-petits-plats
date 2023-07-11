@@ -171,15 +171,41 @@ a {
 /*}*/
 
 .dropdown-item-container {
+    position: relative;
     background: #FFF;
     border-right: 1px;
     padding: 10px;
     border-radius: 11px;
     margin-right: 40px;
     width: 250px;
+    height: 50px;
 }
 
 .dropdown-item-ingredients {
+    color: #1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    margin-bottom: 13px;
+    margin-left: 16px;
+}
+
+.dropdown-item-appliances {
+    color: #1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    margin-bottom: 13px;
+    margin-left: 16px;
+}
+
+.dropdown-item-ustensils {
     color: #1B1B1B;
     font-family: Manrope, sans-serif;
     font-size: 14px;
@@ -212,10 +238,23 @@ li {
 }
 
 .tags-input {
-    border: 1px solid red;
-    padding: 5px;
-    margin: 5px;
+    width: 100%;
+    height: 36px;
+    margin: 53px auto;
+    border-radius: 2px;
+    border: 1px solid #C6C6C6;
+    display: none;
+}
 
+.tags-list {
+    position: absolute;
+    background: #FFF;
+    top: 148px;
+    left: 0;
+    width: 250px;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    padding: 10px;
 }
 
 /*.dropdown-input-field:focus {*/
@@ -240,8 +279,35 @@ li {
 }
 
 
-.ingredient-input-container {
+.input-container {
     display: flex;
     flex-direction: column;
     background: #FFF;
+}
+
+.header-input-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.visible {
+    display: block;
+}
+
+.arrow:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.tete {
+    width: 250px;
+    background: #FFF;
+    position: absolute;
+    left: 0;
+    top: 34px;
+    padding: 0 30px;
 }

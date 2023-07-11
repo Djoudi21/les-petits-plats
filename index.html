@@ -35,29 +35,51 @@
         <!-- Ingredients DD -->
         <div class="btn-group mb-3">
           <div class="dropdown-item-container">
-              <div class="ingredient-input-container">
-                  <div>
+              <div class="input-container">
+                  <div class="header-input-container">
                       <label for="ingredients-input">Ingredients</label>
-                      <span>toto</span>
+                      <span class="arrow" id="ingredient-down-arrow">
+                          <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round"/>
+                          </svg>
+                      </span>
+                      <span class="arrow" id="ingredient-up-arrow">
+                          <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 7L7.5 1L14 7" stroke="#1B1B1B" stroke-linecap="round"/>
+                          </svg>
+                      </span>
                   </div>
-                  <input class="tags-input" id="ingredients-input" type="text">
+                  <div class="tete">
+                      <input class="tags-input" id="ingredients-input" type="text">
+                  </div>
               </div>
 
-            <ul class="" id="tags-ingredients">
+            <ul class="tags-list"  id="tags-ingredients">
             </ul>
           </div>
           &nbsp;
 
           <!-- Appliances DD -->
           <div class="dropdown-item-container">
-              <div class="appliance-input-container">
-                  <div>
+              <div class="input-container">
+                  <div class="header-input-container">
                       <label for="appliances-input">Appliances</label>
-                      <span>toto</span>
+                      <span class="arrow" id="appliance-down-arrow">
+                          <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round"/>
+                          </svg>
+                      </span>
+                      <span class="arrow" id="appliance-up-arrow">
+                          <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 7L7.5 1L14 7" stroke="#1B1B1B" stroke-linecap="round"/>
+                          </svg>
+                      </span>
                   </div>
-                  <input class="tags-input" id="appliances-input" type="text">
+                  <div class="tete">
+                    <input class="tags-input" id="appliances-input" type="text">
+                  </div>
               </div>
-                <ul class="" id="tags-appliances">
+                <ul class="tags-list"  id="tags-appliances">
                 </ul>
           </div>
           &nbsp;
@@ -65,13 +87,22 @@
             <!-- USTENSILS DD -->
             <div class="dropdown-item-container">
                 <div class="ustensil-input-container">
-                    <div>
+                    <div class="header-input-container">
                         <label for="ustensils-input">Ustensils</label>
-                        <span>toto</span>
+                        <span class="arrow" id="ustensil-down-arrow">
+                          <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round"/>
+                          </svg>
+                      </span>
+                        <span class="arrow" id="ustensil-up-arrow">
+                          <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 7L7.5 1L14 7" stroke="#1B1B1B" stroke-linecap="round"/>
+                          </svg>
+                      </span>
                     </div>
                     <input class="tags-input" id="ustensils-input" type="text">
                 </div>
-                <ul class="" id="tags-ustensils">
+                <ul class="tags-list" id="tags-ustensils">
 
                 </ul>
             </div>
@@ -89,4 +120,5 @@
   ></script>
   <script type="module" src="./scripts/api.js"></script>
   <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./scripts/events.js"></script>
 </html>
