@@ -4,9 +4,13 @@ const recipesFactory = (recipes) => {
   const _recipes = recipes;
 
   const _tags = { ingredients: [], appliances: [], ustensils: [] };
+  let _filteredIngredients = []
+  let _filteredAppliances = []
+  let _filteredUstensils = []
+
 
   /* FILTERS */
-  const filterByInput = (searchValue) => {
+  const filterRecipesByInput = (searchValue) => {
     return _recipes.filter(
       (recipe) =>
         recipe.name.toLowerCase().includes(searchValue) ||
@@ -17,7 +21,7 @@ const recipesFactory = (recipes) => {
     );
   };
 
-  const filterByTag = (tags = _tags) => {
+  const filterRecipesByTag = (tags = _tags) => {
     let result = _recipes;
     /* filter by ingredients */
     tags.ingredients.forEach((_ingredient) => {
@@ -41,6 +45,36 @@ const recipesFactory = (recipes) => {
     });
     return result;
   };
+
+  const filterIngredientTagsByInput = (searchValue) => {
+    return _filteredIngredients.filter(
+        (ingredient) => {
+          const isIncluded = ingredient.toLowerCase().includes(searchValue)
+          if(!isIncluded) return
+          return ingredient
+        }
+    )
+  }
+
+  const filterApplianceTagsByInput = (searchValue) => {
+    return _filteredAppliances.filter(
+        (appliance) => {
+          const isIncluded = appliance.toLowerCase().includes(searchValue)
+          if(!isIncluded) return
+          return appliance
+        }
+    )
+  }
+
+  const filterUstensilTagsByInput = (searchValue) => {
+    return _filteredUstensils.filter(
+        (ustensil) => {
+          const isIncluded = ustensil.toLowerCase().includes(searchValue)
+          if(!isIncluded) return
+          return ustensil
+        }
+    )
+  }
 
   // ---------------   GET ALL  ----------------->
   const getAllIngredients = (recipes = _recipes) => {
@@ -86,53 +120,63 @@ const recipesFactory = (recipes) => {
   /* HANDLERS */
   const onInputChange = (e) => {
     const value = e.target.value;
-    const result = filterByInput(value.toLowerCase());
+    const result = filterRecipesByInput(value.toLowerCase());
     buildRecipes(result);
   };
 
   const onIngredientsInputChange = (e) => {
     const value = e.target.value;
-    console.log(_recipes.length)
-    // const result = filterByInput(value.toLowerCase());
-    // buildRecipes(result);
+    const result = filterIngredientTagsByInput(value.toLowerCase());
+    buildIngredientsTagsByFilteredTags(result)
   };
 
+  const onAppliancesInputChange = (e) => {
+    const value = e.target.value;
+    const result = filterApplianceTagsByInput(value.toLowerCase());
+    buildAppliancesTagsByFilteredTags(result)
+  };
+
+  const onUstensilsInputChange = (e) => {
+    const value = e.target.value;
+    const result = filterUstensilTagsByInput(value.toLowerCase());
+    buildUstensilsTagsByFilteredTags(result)
+  }
 
   // ---------------   TAGS EVENT HANDLER ----------------->
   const onIngredientTagClick = (e, ingredient) => {
     _tags.ingredients.push(ingredient);
-    const result = filterByTag();
+    const result = filterRecipesByTag();
     buildRecipes(result);
-    buildIngredientsTags(result);
+    buildIngredientsTagsByRecipes(result);
     buildTagUi();
   };
 
   const onApplianceTagClick = (e, appliance) => {
     _tags.appliances.push(appliance);
-    const result = filterByTag();
+    const result = filterRecipesByTag();
     buildRecipes(result);
-    buildAppliancesTags(result);
+    buildAppliancesTagsByRecipes(result);
     buildTagUi();
   };
 
   const onUstetnsilTagClick = (e, ustensil) => {
     _tags.ustensils.push(ustensil);
-    const result = filterByTag();
+    const result = filterRecipesByTag();
     buildRecipes(result);
-    buildUstensilsTags(result);
+    buildUstensilsTagsByRecipes(result);
     buildTagUi();
   };
 
   const onRemoveTag = (type, value) => {
     _tags[type] = _tags[type].filter((tag) => tag !== value);
     buildTagUi();
-    const result = filterByTag();
+    const result = filterRecipesByTag();
     if (type === "ingredients") {
-      buildIngredientsTags();
+      buildIngredientsTagsByRecipes();
     } else if(type === "appliances") {
-      buildAppliancesTags();
+      buildAppliancesTagsByRecipes();
     } else {
-      buildUstensilsTags();
+      buildUstensilsTagsByRecipes();
     }
     buildRecipes(result);
   };
@@ -175,8 +219,9 @@ const recipesFactory = (recipes) => {
     });
   };
 
-  const buildIngredientsTags = (recipes = _recipes) => {
+  const buildIngredientsTagsByRecipes = (recipes = _recipes) => {
     let ingredients = getAllIngredients(recipes);
+    _filteredIngredients = ingredients
     const tagsElement = document.getElementById("tags-ingredients");
     tagsElement.innerHTML = "";
     ingredients.forEach((ingredient) => {
@@ -188,8 +233,21 @@ const recipesFactory = (recipes) => {
     });
   };
 
-  const buildAppliancesTags = (recipes = _recipes) => {
+  const buildIngredientsTagsByFilteredTags = (filteredIngredients = _filteredIngredients) => {
+    const tagsElement = document.getElementById("tags-ingredients");
+    tagsElement.innerHTML = "";
+    filteredIngredients.forEach((ingredient) => {
+      tagsElement.append(
+          buildTag("ingredients", ingredient, (e) =>
+              onIngredientTagClick(e, ingredient)
+          )
+      );
+    });
+  };
+
+  const buildAppliancesTagsByRecipes = (recipes = _recipes) => {
     let appliances = getAllAppliances(recipes);
+    _filteredAppliances = appliances
     const tagsElement = document.getElementById("tags-appliances");
     tagsElement.innerHTML = "";
     appliances.forEach((appliance) => {
@@ -201,7 +259,32 @@ const recipesFactory = (recipes) => {
     });
   };
 
-  const buildUstensilsTags = (recipes = _recipes) => {
+  const buildAppliancesTagsByFilteredTags = (filteredAppliances = _filteredAppliances) => {
+    const tagsElement = document.getElementById("tags-appliances");
+    tagsElement.innerHTML = "";
+    filteredAppliances.forEach((appliance) => {
+      tagsElement.append(
+          buildTag("appliances", appliance, (e) =>
+              onApplianceTagClick(e, appliance)
+          )
+      );
+    });
+  };
+
+  const buildUstensilsTagsByFilteredTags = (filteredUstensils = _filteredUstensils) => {
+    const tagsElement = document.getElementById("tags-ustensils");
+    tagsElement.innerHTML = "";
+    filteredUstensils.forEach((ustensil) => {
+      tagsElement.append(
+          buildTag("ustensils", ustensil, (e) =>
+              onApplianceTagClick(e, ustensil)
+          )
+      );
+    });
+  };
+
+
+  const buildUstensilsTagsByRecipes = (recipes = _recipes) => {
     let ustensils = getAllUstensils(recipes);
     const tagsElement = document.getElementById("tags-ustensils");
     tagsElement.innerHTML = "";
@@ -215,12 +298,12 @@ const recipesFactory = (recipes) => {
   };
 
   const buildTag = (type, content, onClick) => {
+    if (_tags[type].includes(content)) {
+      return
+    }
     const tagContainer = document.createElement("li");
     const tagElement = document.createElement("a");
     tagElement.classList.add(`dropdown-item-${type}`);
-    if (_tags[type].includes(content)) {
-      tagElement.classList.add("disabled");
-    }
     tagElement.textContent = content;
     tagElement.addEventListener("click", onClick);
     tagContainer.appendChild(tagElement);
@@ -280,21 +363,25 @@ const recipesFactory = (recipes) => {
     });
 
     // Set ingredients list based on recipes
-    buildIngredientsTags(recipes)
-    buildAppliancesTags(recipes)
-    buildUstensilsTags(recipes)
+    buildIngredientsTagsByRecipes(recipes)
+    buildAppliancesTagsByRecipes(recipes)
+    buildUstensilsTagsByRecipes(recipes)
     recipeContainer.appendChild(div);
   };
 
   document.getElementById('ingredients-input').addEventListener('input',onIngredientsInputChange);
+  document.getElementById('appliances-input').addEventListener('input',onAppliancesInputChange);
+  document.getElementById('ustensils-input').addEventListener('input',onUstensilsInputChange);
 
   const init = () => {
     buildInput();
-    buildIngredientsTags();
+    buildIngredientsTagsByRecipes();
     buildRecipes();
   };
 
-  return { init };
+  return {
+    init
+  };
 };
 
 const allRecipes = await getAllRecipes();
