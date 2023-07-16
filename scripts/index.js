@@ -333,7 +333,7 @@ const recipesFactory = (recipes) => {
       recipeContainer.classList.add("col");
       recipeContainer.innerHTML = `
             <div class="recipe-item">
-                <img class="recipe-item-image" src="../assets/images/Recette01.jpg" alt="recipe">
+                <img class="recipe-item-image" src="${recipe.image}" alt="recipe">
                 <div class="toto">
                     <h3>${recipe.name}</h3>
                     <div class="text-left">
