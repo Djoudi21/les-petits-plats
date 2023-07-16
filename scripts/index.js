@@ -190,7 +190,7 @@ const recipesFactory = (recipes) => {
     tagsContainer.innerHTML = "";
     _tags.ingredients.forEach((ingredient) => {
       const tag = document.createElement("span");
-      tag.classList.add("badge", "text-bg-primary", "m-1");
+      tag.classList.add("tag");
       tag.textContent = ingredient;
       tag.addEventListener("click", () =>
           onRemoveTag("ingredients", ingredient)
@@ -200,7 +200,7 @@ const recipesFactory = (recipes) => {
 
     _tags.appliances.forEach((appliance) => {
       const tag = document.createElement("span");
-      tag.classList.add("badge", "text-bg-primary", "m-1");
+      tag.classList.add("tag");
       tag.textContent = appliance;
       tag.addEventListener("click", () =>
           onRemoveTag("appliances", appliance)
@@ -210,7 +210,7 @@ const recipesFactory = (recipes) => {
 
     _tags.ustensils.forEach((ustensil) => {
       const tag = document.createElement("span");
-      tag.classList.add("badge", "text-bg-primary", "m-1");
+      tag.classList.add("tag");
       tag.textContent = ustensil;
       tag.addEventListener("click", () =>
           onRemoveTag("ustensils", ustensil)
@@ -311,6 +311,34 @@ const recipesFactory = (recipes) => {
   };
   // ---------------   INGREDIENTS/APPLIANCES/USTENSILS LISTS ----------------->
 
+  const buildRecipesNumber = (recipes) => {
+    const tagsListContainer = document.getElementById('tags-list-container')
+    const recipesNumber = document.getElementById('recipes-length')
+    if(recipesNumber === null) {
+      const initialRecipesNumber = document.createElement('div')
+      initialRecipesNumber.setAttribute('id', 'recipes-length')
+      initialRecipesNumber.classList.add('recipes-number')
+      if(recipes.length === 0 ) {
+        initialRecipesNumber.innerHTML = `0 recette`
+      } else if(recipes.length === 1) {
+        initialRecipesNumber.innerHTML = `${recipes.length} recette`
+      } else {
+        initialRecipesNumber.innerHTML = `${recipes.length} recettes`
+
+      }
+      tagsListContainer.append(initialRecipesNumber)
+    } else {
+      recipesNumber.innerText = ''
+      if(recipes.length === 0 ) {
+        recipesNumber.innerHTML = `0 recette`
+      } else if(recipes.length === 1) {
+        recipesNumber.innerHTML = `${recipes.length} recette`
+      } else {
+        recipesNumber.innerHTML = `${recipes.length} recettes`
+      }
+      tagsListContainer.append(recipesNumber)
+    }
+  }
 
   const buildInput = () => {
     const input = document.createElement("input");
@@ -366,6 +394,8 @@ const recipesFactory = (recipes) => {
     buildIngredientsTagsByRecipes(recipes)
     buildAppliancesTagsByRecipes(recipes)
     buildUstensilsTagsByRecipes(recipes)
+    console.log('1')
+    buildRecipesNumber(recipes)
     recipeContainer.appendChild(div);
   };
 
