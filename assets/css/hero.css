@@ -5,10 +5,18 @@
     align-items: center;
     height: 667px;
     background-size: cover;
+    position: relative;
 }
 
 .hero-content {
     width: 70%;
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 69px;
 }
 
 .hero-title {

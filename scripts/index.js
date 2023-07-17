@@ -120,6 +120,14 @@ const recipesFactory = (recipes) => {
   /* HANDLERS */
   const onInputChange = (e) => {
     const value = e.target.value;
+    const closeIcon  = document.getElementById('close-icon-main-input')
+    if(value.length) {
+      closeIcon.classList.remove('hidden')
+      closeIcon.classList.add('visible')
+    } else {
+      closeIcon.classList.remove('visible')
+      closeIcon.classList.add('hidden')
+    }
     const result = filterRecipesByInput(value.toLowerCase());
     buildRecipes(result);
   };
@@ -180,6 +188,11 @@ const recipesFactory = (recipes) => {
     }
     buildRecipes(result);
   };
+
+  const onSettingInputValue = () => {
+    const mainInput = document.getElementById('main-search-input')
+    mainInput.value = ''
+  }
   // ---------------   TAGS EVENT HANDLER ----------------->
 
 
@@ -189,32 +202,44 @@ const recipesFactory = (recipes) => {
     const tagsContainer = document.getElementById("tags-container");
     tagsContainer.innerHTML = "";
     _tags.ingredients.forEach((ingredient) => {
-      const tag = document.createElement("span");
+      const tag = document.createElement("div");
+      const closingIcon = document.createElement('span')
+      closingIcon.innerText = 'tu'
+      closingIcon.classList.add('closing-icon')
+      closingIcon.addEventListener("click", () =>
+              onRemoveTag("ingredients", ingredient)
+          );
       tag.classList.add("tag");
       tag.textContent = ingredient;
-      tag.addEventListener("click", () =>
-          onRemoveTag("ingredients", ingredient)
-      );
+      tag.append(closingIcon)
       tagsContainer.append(tag);
     });
 
     _tags.appliances.forEach((appliance) => {
-      const tag = document.createElement("span");
-      tag.classList.add("tag");
-      tag.textContent = appliance;
-      tag.addEventListener("click", () =>
+      const tag = document.createElement("div");
+      const closingIcon = document.createElement('span')
+      closingIcon.innerText = 'tu'
+      closingIcon.classList.add('closing-icon')
+      closingIcon.addEventListener("click", () =>
           onRemoveTag("appliances", appliance)
       );
+      tag.classList.add("tag");
+      tag.textContent = appliance;
+      tag.append(closingIcon)
       tagsContainer.append(tag);
     });
 
     _tags.ustensils.forEach((ustensil) => {
-      const tag = document.createElement("span");
-      tag.classList.add("tag");
-      tag.textContent = ustensil;
-      tag.addEventListener("click", () =>
+      const tag = document.createElement("div");
+      const closingIcon = document.createElement('span')
+      closingIcon.innerText = 'tu'
+      closingIcon.classList.add('closing-icon')
+      closingIcon.addEventListener("click", () =>
           onRemoveTag("ustensils", ustensil)
       );
+      tag.classList.add("tag");
+      tag.textContent = ustensil;
+      tag.append(closingIcon)
       tagsContainer.append(tag);
     });
   };
@@ -340,13 +365,6 @@ const recipesFactory = (recipes) => {
     }
   }
 
-  const buildInput = () => {
-    const input = document.createElement("input");
-    input.classList.add("form-control");
-    input.addEventListener("keyup", onInputChange);
-    document.getElementById("search-input").appendChild(input);
-  };
-
   const buildRecipes = (recipes = _recipes) => {
     const recipeContainer = document.getElementById("recipes-container");
     recipeContainer.innerHTML = "";
@@ -361,7 +379,10 @@ const recipesFactory = (recipes) => {
       recipeContainer.classList.add("col");
       recipeContainer.innerHTML = `
             <div class="recipe-item">
+              <div class="img-container">
                 <img class="recipe-item-image" src="${recipe.image}" alt="recipe">
+                <div class="img-badge">${recipe.time} min</div>
+              </div>
                 <div class="toto">
                     <h3>${recipe.name}</h3>
                     <div class="text-left">
@@ -376,7 +397,7 @@ const recipesFactory = (recipes) => {
                             (ingredient) =>
                                 `<div class="ingredient">
                                   <p class="tata">${ingredient.ingredient}</p> 
-                                  <div class="flex">
+                                  <div class="quantity">
                                     <p class="titi">${ingredient.quantity || ""}</p>
                                     <p class="titi">${ingredient.unit || ""}</p>
                                   </div>
@@ -394,17 +415,28 @@ const recipesFactory = (recipes) => {
     buildIngredientsTagsByRecipes(recipes)
     buildAppliancesTagsByRecipes(recipes)
     buildUstensilsTagsByRecipes(recipes)
-    console.log('1')
     buildRecipesNumber(recipes)
-    recipeContainer.appendChild(div);
+    if(recipes.length) {
+      recipeContainer.appendChild(div);
+    } else {
+      const noRecipesSection = document.getElementById('no-recipes-section')
+      noRecipesSection.innerHTML = ''
+      const recipesSection = document.getElementById('recipes-section')
+      const paragraph = document.createElement('p')
+      const mainInput = document.getElementById('main-search-input')
+      paragraph.innerText = `Aucune recette ne contient "${mainInput.value}" vous pouvez chercher tarte aux pommes », « poisson », etc.`
+      noRecipesSection.append(paragraph)
+      recipesSection.parentNode.insertBefore(noRecipesSection, recipesSection.nextSibling)
+    }
   };
 
   document.getElementById('ingredients-input').addEventListener('input',onIngredientsInputChange);
   document.getElementById('appliances-input').addEventListener('input',onAppliancesInputChange);
   document.getElementById('ustensils-input').addEventListener('input',onUstensilsInputChange);
+  document.getElementById('main-search-input').addEventListener('input', onInputChange)
+  document.getElementById('close-icon-main-input').addEventListener('click', onSettingInputValue)
 
   const init = () => {
-    buildInput();
     buildIngredientsTagsByRecipes();
     buildRecipes();
   };
