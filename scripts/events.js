@@ -83,7 +83,6 @@ applianceDownArrow.addEventListener('click', () => {
     hideUstensilsList()
 })
 
-
 ustensilUpArrow.addEventListener('click', () => {
     // hide ustensil up arrow
     hideUstensilsUpArrow()

@@ -411,11 +411,13 @@ const recipesFactory = (recipes) => {
       rowContainer.append(recipeContainer);
     });
 
-    // Set ingredients list based on recipes
+    // Set tags list and recipes number based on recipes
     buildIngredientsTagsByRecipes(recipes)
     buildAppliancesTagsByRecipes(recipes)
     buildUstensilsTagsByRecipes(recipes)
     buildRecipesNumber(recipes)
+
+    // set ui if no recipes has been filtered
     if(recipes.length) {
       recipeContainer.appendChild(div);
     } else {
