@@ -12,7 +12,11 @@ const applianceDownArrow = document.getElementById('appliance-down-arrow')
 const tagsAppliances = document.getElementById('tags-appliances')
 tagsAppliances.classList.add('hidden')
 const tagsAppliancesInput = document.getElementById('appliances-input')
+const tagsAppliancesInputContainer = document.getElementById('appliances-input-container')
 tagsAppliancesInput.classList.add('hidden')
+tagsAppliancesInputContainer.classList.add('hidden')
+const closeIconApplianceInput = document.getElementById('close-icon-appliance-tag-input')
+const searchIconApplianceInput = document.getElementById('search-icon-appliance-tag-input')
 
 
 const ustensilUpArrow = document.getElementById('ustensil-up-arrow')
@@ -63,6 +67,12 @@ applianceUpArrow.addEventListener('click', () => {
 
     //hide appliances list and input
     hideAppliancesList()
+
+    closeIconApplianceInput.classList.add('hidden')
+    closeIconApplianceInput.classList.remove('visible')
+
+    tagsAppliancesInputContainer.classList.add('hidden')
+
 })
 
 applianceDownArrow.addEventListener('click', () => {
@@ -72,6 +82,11 @@ applianceDownArrow.addEventListener('click', () => {
     // display appliance up arrow
     applianceUpArrow.classList.remove('hidden')
     applianceUpArrow.classList.add('visible')
+
+    searchIconApplianceInput.classList.remove('hidden')
+    searchIconApplianceInput.classList.add('visible')
+
+    tagsAppliancesInputContainer.classList.remove('hidden')
 
     //display appliances list and input
     displayAppliancesList()

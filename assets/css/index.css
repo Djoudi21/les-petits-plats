@@ -1,4 +1,5 @@
 @import './hero.css';
+@import './tags-input.css';
 
 *,
 *::before,
@@ -201,25 +202,12 @@ li {
     cursor: pointer;
 }
 
-/*.dropdown-label {*/
-/*    margin-right: 63px;*/
-/*}*/
-
 .dropdown-input-container {
     margin: 0 11px 11px 11px;
     border: 1px solid #C6C6C6;
     display: flex;
     align-items: center;
     gap: 5px;
-}
-
-.tags-input {
-    width: 100%;
-    height: 36px;
-    margin: 53px auto;
-    border-radius: 2px;
-    border: 1px solid #C6C6C6;
-    display: none;
 }
 
 .tags-list {
@@ -231,6 +219,9 @@ li {
     border-bottom-left-radius: 11px;
     border-bottom-right-radius: 11px;
     z-index: 1;
+    max-height: 200px;
+    height: fit-content;
+    overflow: scroll;
 }
 
 .tags-list li {
@@ -295,16 +286,6 @@ li {
 
 .hidden {
     display: none;
-}
-
-
-.tete {
-    width: 250px;
-    background: #FFF;
-    position: absolute;
-    left: 0;
-    top: 34px;
-    padding: 0 30px;
 }
 
 .tag {

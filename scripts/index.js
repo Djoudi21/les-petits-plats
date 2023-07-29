@@ -139,6 +139,8 @@ const recipesFactory = (recipes) => {
   };
 
   const onAppliancesInputChange = (e) => {
+    onToggleCloseIcon(e, 'close-icon-appliance-tag-input')
+
     const value = e.target.value;
     const result = filterApplianceTagsByInput(value.toLowerCase());
     buildAppliancesTagsByFilteredTags(result)
@@ -148,6 +150,21 @@ const recipesFactory = (recipes) => {
     const value = e.target.value;
     const result = filterUstensilTagsByInput(value.toLowerCase());
     buildUstensilsTagsByFilteredTags(result)
+  }
+
+  const onToggleCloseIcon = (e, id) => {
+    const el = document.getElementById(id)
+    el.addEventListener('click', () => {
+      const inputToDelete = document.getElementById('appliances-input')
+      inputToDelete.value = ''
+    })
+    if(e.target.value.length > 0) {
+      el.classList.remove('hidden')
+      el.classList.add('visible')
+    } else {
+      el.classList.remove('visible')
+      el.classList.add('hidden')
+    }
   }
 
   // ---------------   TAGS EVENT HANDLER ----------------->
@@ -163,6 +180,7 @@ const recipesFactory = (recipes) => {
     _tags.appliances.push(appliance);
     const result = filterRecipesByTag();
     buildRecipes(result);
+
     buildAppliancesTagsByRecipes(result);
     buildTagUi();
   };
@@ -271,6 +289,7 @@ const recipesFactory = (recipes) => {
   };
 
   const buildAppliancesTagsByRecipes = (recipes = _recipes) => {
+    console.log(recipes)
     let appliances = getAllAppliances(recipes);
     _filteredAppliances = appliances
     const tagsElement = document.getElementById("tags-appliances");
@@ -302,7 +321,7 @@ const recipesFactory = (recipes) => {
     filteredUstensils.forEach((ustensil) => {
       tagsElement.append(
           buildTag("ustensils", ustensil, (e) =>
-              onApplianceTagClick(e, ustensil)
+              onUstetnsilTagClick(e, ustensil)
           )
       );
     });
@@ -324,7 +343,7 @@ const recipesFactory = (recipes) => {
 
   const buildTag = (type, content, onClick) => {
     if (_tags[type].includes(content)) {
-      return
+      return ''
     }
     const tagContainer = document.createElement("li");
     const tagElement = document.createElement("a");

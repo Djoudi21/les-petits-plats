@@ -1,0 +1,37 @@
+#close-icon-appliance-tag-input:hover {
+    cursor: pointer;
+}
+
+.tags-input {
+    height: 36px;
+    border-radius: 2px;
+    border: none;
+    /*border: 1px solid #C6C6C6;*/
+    display: none;
+    padding: 0 10px;
+    width: 70%;
+}
+
+.tags-input:focus {
+    outline: none;
+}
+
+.tete {
+    width: 250px;
+    background: #FFF;
+    position: absolute;
+    left: 0;
+    top: 34px;
+    padding: 0;
+}
+
+.azy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-radius: 2px;
+    border: 1px solid #C6C6C6;
+    padding: 10px;
+    margin: 0px;
+}
