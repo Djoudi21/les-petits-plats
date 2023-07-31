@@ -121,16 +121,19 @@ const recipesFactory = (recipes) => {
   const onInputChange = (e) => {
     const value = e.target.value;
     const closeIcon  = document.getElementById('close-icon-main-input')
+    const noRecipeSection = document.getElementById('no-recipes-section')
+
     if(value.length) {
       closeIcon.classList.remove('hidden')
       closeIcon.classList.add('visible')
     } else {
       closeIcon.classList.remove('visible')
       closeIcon.classList.add('hidden')
+      noRecipeSection.classList.remove('flex')
+      noRecipeSection.classList.add('hidden')
     }
     const result = filterRecipesByInput(value.toLowerCase());
     if(!result.length) {
-      const noRecipeSection = document.getElementById('no-recipes-section')
       noRecipeSection.classList.remove('hidden')
       noRecipeSection.classList.add('flex')
     }
