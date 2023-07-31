@@ -1,0 +1,33 @@
+.img-container {
+    position: relative;
+    height: 33%;
+}
+
+.img-badge {
+    border-radius: 14px;
+    background: #FFD15B;
+    padding: 5px 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 22px;
+}
+
+.closing-icon:hover {
+    cursor: pointer;
+}
+
+.img-container {
+    position: relative;
+}
+
+#close-icon-main-input:hover {
+    cursor: pointer;
+}
+
+.icons {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

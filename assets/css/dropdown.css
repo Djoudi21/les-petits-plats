@@ -1,0 +1,58 @@
+.dropdown-item-container {
+    position: relative;
+    background: #FFF;
+    border-right: 1px;
+    padding: 10px;
+    border-radius: 11px;
+    margin-right: 40px;
+    width: 250px;
+    height: 50px;
+}
+
+.dropdown-item-ingredients {
+    color: #1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    margin-bottom: 13px;
+    margin-left: 16px;
+}
+
+.dropdown-item-appliances {
+    color: #1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    margin-bottom: 13px;
+    margin-left: 16px;
+}
+
+.dropdown-item-ustensils {
+    color: #1B1B1B;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    margin-bottom: 13px;
+    margin-left: 16px;
+}
+
+.dropdown-item-ingredients:hover {
+    cursor: pointer;
+}
+
+.dropdown-input-container {
+    margin: 0 11px 11px 11px;
+    border: 1px solid #C6C6C6;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

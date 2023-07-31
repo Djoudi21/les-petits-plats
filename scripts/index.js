@@ -129,17 +129,24 @@ const recipesFactory = (recipes) => {
       closeIcon.classList.add('hidden')
     }
     const result = filterRecipesByInput(value.toLowerCase());
+    if(!result.length) {
+      const noRecipeSection = document.getElementById('no-recipes-section')
+      noRecipeSection.classList.remove('hidden')
+      noRecipeSection.classList.add('flex')
+    }
     buildRecipes(result);
   };
 
   const onIngredientsInputChange = (e) => {
+    onToggleCloseIcon(e, 'close-icon-ingredient-tag-input', 'ingredients-input')
+
     const value = e.target.value;
     const result = filterIngredientTagsByInput(value.toLowerCase());
     buildIngredientsTagsByFilteredTags(result)
   };
 
   const onAppliancesInputChange = (e) => {
-    onToggleCloseIcon(e, 'close-icon-appliance-tag-input')
+    onToggleCloseIcon(e, 'close-icon-appliance-tag-input', 'appliances-input')
 
     const value = e.target.value;
     const result = filterApplianceTagsByInput(value.toLowerCase());
@@ -147,23 +154,24 @@ const recipesFactory = (recipes) => {
   };
 
   const onUstensilsInputChange = (e) => {
+    onToggleCloseIcon(e, 'close-icon-ustensil-tag-input', 'ustensils-input')
+
     const value = e.target.value;
     const result = filterUstensilTagsByInput(value.toLowerCase());
     buildUstensilsTagsByFilteredTags(result)
   }
 
-  const onToggleCloseIcon = (e, id) => {
+  const onToggleCloseIcon = (e, id, elToDelete) => {
     const el = document.getElementById(id)
     el.addEventListener('click', () => {
-      const inputToDelete = document.getElementById('appliances-input')
+      const inputToDelete = document.getElementById(elToDelete)
       inputToDelete.value = ''
+      el.classList.remove('visible')
+      el.classList.add('hidden')
     })
     if(e.target.value.length > 0) {
       el.classList.remove('hidden')
       el.classList.add('visible')
-    } else {
-      el.classList.remove('visible')
-      el.classList.add('hidden')
     }
   }
 
@@ -415,7 +423,7 @@ const recipesFactory = (recipes) => {
                         .map(
                             (ingredient) =>
                                 `<div class="ingredient">
-                                  <p class="tata">${ingredient.ingredient}</p> 
+                                  <p class="text-semibold">${ingredient.ingredient}</p> 
                                   <div class="quantity">
                                     <p class="titi">${ingredient.quantity || ""}</p>
                                     <p class="titi">${ingredient.unit || ""}</p>
@@ -444,6 +452,7 @@ const recipesFactory = (recipes) => {
       noRecipesSection.innerHTML = ''
       const recipesSection = document.getElementById('recipes-section')
       const paragraph = document.createElement('p')
+      paragraph.classList.add('text')
       const mainInput = document.getElementById('main-search-input')
       paragraph.innerText = `Aucune recette ne contient "${mainInput.value}" vous pouvez chercher tarte aux pommes », « poisson », etc.`
       noRecipesSection.append(paragraph)

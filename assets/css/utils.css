@@ -1,0 +1,47 @@
+.clamped-content {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+}
+
+.gap {
+    gap: 48px
+}
+
+.quantity {
+    display: flex;
+    gap:5px
+}
+
+.text-left {
+    text-align: left;
+}
+
+.reset-icon:hover {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+.visible {
+    display: block;
+}
+
+.arrow:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.text {
+    font-size: 1.5rem;
+}

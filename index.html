@@ -44,7 +44,7 @@
             <h1 class="hero-title">CHERCHEZ PARMI PLUS DE 1500 RECETTES
             DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
           <div id="search-input-container" class="main-input-container">
-              <input id="main-search-input" class="input" type="text" placeholder="Rechercher une recette, un ingrédient, ...">
+              <input id="main-search-input" class="main-input" type="text" placeholder="Rechercher une recette, un ingrédient, ...">
               <div class="icons">
                   <svg class="hidden" id="close-icon-main-input" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M15 15L8.5 8.5M8.5 8.5L2 2M8.5 8.5L15 2M8.5 8.5L2 15" stroke="#7A7A7A" stroke-width="2.16667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -80,8 +80,12 @@
                               </svg>
                           </span>
                     </div>
-                    <div class="tete">
-                        <input class="tags-input" id="ingredients-input" type="text">
+                    <div id="ingredient-container" class="tete">
+                        <div class="azy" id="ingredients-input-container">
+                            <input class="tags-input" id="ingredients-input" type="text">
+                            <img class="hidden" id="close-icon-ingredient-tag-input" width="10" height="10" src="./assets/images/close-icon.png" alt="">
+                            <img class="hidden" id="search-icon-ingredient-tag-input"  width="20" height="20" src="./assets/images/search-icon-tag.svg" alt="">
+                        </div>
                     </div>
                 </div>
 
@@ -106,7 +110,7 @@
                               </svg>
                           </span>
                     </div>
-                    <div class="tete">
+                    <div id="appliance-container" class="tete">
                         <div class="azy" id="appliances-input-container">
                             <input class="tags-input" id="appliances-input" type="text">
                             <img class="hidden" id="close-icon-appliance-tag-input" width="10" height="10" src="./assets/images/close-icon.png" alt="">
@@ -135,8 +139,12 @@
                               </svg>
                           </span>
                     </div>
-                    <div class="tete">
-                        <input class="tags-input" id="ustensils-input" type="text">
+                    <div id="ustensil-container" class="tete">
+                        <div class="azy" id="ustensils-input-container">
+                            <input class="tags-input" id="ustensils-input" type="text">
+                            <img class="hidden" id="close-icon-ustensil-tag-input" width="10" height="10" src="./assets/images/close-icon.png" alt="">
+                            <img class="hidden" id="search-icon-ustensil-tag-input"  width="20" height="20" src="./assets/images/search-icon-tag.svg" alt="">
+                        </div>
                     </div>
                 </div>
                 <ul class="tags-list" id="tags-ustensils">
@@ -147,7 +155,7 @@
           <div id="tags-container"></div>
           <div id="recipes-container"></div>
       </section>
-      <section id="no-recipes-section">
+      <section class="hidden" id="no-recipes-section">
       </section>
     </main>
   </body>

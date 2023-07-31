@@ -4,7 +4,14 @@ const ingredientDownArrow = document.getElementById('ingredient-down-arrow')
 const tagsIngredients = document.getElementById('tags-ingredients')
 tagsIngredients.classList.add('hidden')
 const tagsIngredientsInput = document.getElementById('ingredients-input')
+const tagsIngredientsInputContainer = document.getElementById('ingredients-input-container')
 tagsIngredientsInput.classList.add('hidden')
+tagsIngredientsInputContainer.classList.add('hidden')
+const closeIconIngredientInput = document.getElementById('close-icon-ingredient-tag-input')
+const searchIconIngredientInput = document.getElementById('search-icon-ingredient-tag-input')
+const ingredientContainer = document.getElementById('ingredient-container')
+
+
 
 const applianceUpArrow = document.getElementById('appliance-up-arrow')
 applianceUpArrow.classList.add('hidden')
@@ -17,7 +24,7 @@ tagsAppliancesInput.classList.add('hidden')
 tagsAppliancesInputContainer.classList.add('hidden')
 const closeIconApplianceInput = document.getElementById('close-icon-appliance-tag-input')
 const searchIconApplianceInput = document.getElementById('search-icon-appliance-tag-input')
-
+const applianceContainer = document.getElementById('appliance-container')
 
 const ustensilUpArrow = document.getElementById('ustensil-up-arrow')
 ustensilUpArrow.classList.add('hidden')
@@ -25,11 +32,22 @@ const ustensilDownArrow = document.getElementById('ustensil-down-arrow')
 const tagsUstensils = document.getElementById('tags-ustensils')
 tagsUstensils.classList.add('hidden')
 const tagsUstensilsInput = document.getElementById('ustensils-input')
+const tagsUstensilsInputContainer = document.getElementById('ustensils-input-container')
 tagsUstensilsInput.classList.add('hidden')
+tagsUstensilsInputContainer.classList.add('hidden')
+const closeIconUstensilInput = document.getElementById('close-icon-ustensil-tag-input')
+const searchIconUstensilInput = document.getElementById('search-icon-ustensil-tag-input')
+const ustensilContainer = document.getElementById('ustensil-container')
+
 ingredientUpArrow.addEventListener('click', () => {
     // hide ingredient up arrow
     hideIngredientsUpArrow()
 
+
+    tagsIngredientsInputContainer.classList.add('hidden')
+    ingredientContainer.classList.remove('p-20-h-150')
+    closeIconIngredientInput.classList.add('hidden')
+    closeIconIngredientInput.classList.remove('visible')
     // display ingredient down arrow
     displayIngredientsDownArrow()
 
@@ -45,6 +63,14 @@ ingredientDownArrow.addEventListener('click', () => {
     ingredientUpArrow.classList.remove('hidden')
     ingredientUpArrow.classList.add('visible')
 
+    ustensilContainer.classList.add('hidden')
+    applianceContainer.classList.add('hidden')
+    searchIconIngredientInput.classList.remove('hidden')
+    searchIconIngredientInput.classList.add('visible')
+    tagsIngredientsInputContainer.classList.remove('hidden')
+    ingredientContainer.classList.add('p-20-h-150')
+    ingredientContainer.classList.remove('hidden')
+    ingredientContainer.classList.add('visible')
     //display ingredients list and input
     displayIngredientsList()
 
@@ -72,6 +98,8 @@ applianceUpArrow.addEventListener('click', () => {
     closeIconApplianceInput.classList.remove('visible')
 
     tagsAppliancesInputContainer.classList.add('hidden')
+    applianceContainer.classList.remove('p-20-h-150')
+
 
 })
 
@@ -87,7 +115,11 @@ applianceDownArrow.addEventListener('click', () => {
     searchIconApplianceInput.classList.add('visible')
 
     tagsAppliancesInputContainer.classList.remove('hidden')
-
+    applianceContainer.classList.add('p-20-h-150')
+    applianceContainer.classList.remove('hidden')
+    applianceContainer.classList.add('visible')
+    ingredientContainer.classList.add('hidden')
+    ustensilContainer.classList.add('hidden')
     //display appliances list and input
     displayAppliancesList()
 
@@ -96,6 +128,10 @@ applianceDownArrow.addEventListener('click', () => {
     hideIngredientsUpArrow()
     displayIngredientsDownArrow()
     hideUstensilsList()
+    hideUstensilsUpArrow()
+    displayUstensilsDownArrow()
+
+
 })
 
 ustensilUpArrow.addEventListener('click', () => {
@@ -107,6 +143,12 @@ ustensilUpArrow.addEventListener('click', () => {
 
     //hide ustensils list and input
     hideUstensilsList()
+
+    closeIconUstensilInput.classList.add('hidden')
+    closeIconUstensilInput.classList.remove('visible')
+
+    tagsUstensilsInputContainer.classList.add('hidden')
+    ustensilContainer.classList.remove('p-20-h-150')
 })
 
 ustensilDownArrow.addEventListener('click', () => {
@@ -116,7 +158,16 @@ ustensilDownArrow.addEventListener('click', () => {
     // display ustensil up arrow
     ustensilUpArrow.classList.remove('hidden')
     ustensilUpArrow.classList.add('visible')
+    applianceContainer.classList.add('hidden')
+    ingredientContainer.classList.add('hidden')
 
+    tagsUstensilsInputContainer.classList.remove('hidden')
+
+    searchIconUstensilInput.classList.remove('hidden')
+    searchIconUstensilInput.classList.add('visible')
+    ustensilContainer.classList.add('p-20-h-150')
+    ustensilContainer.classList.remove('hidden')
+    ustensilContainer.classList.add('visible')
     //display ustensils list and input
     displayUstensilsList()
 
