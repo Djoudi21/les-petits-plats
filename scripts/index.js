@@ -120,24 +120,29 @@ const recipesFactory = (recipes) => {
   /* HANDLERS */
   const onInputChange = (e) => {
     const value = e.target.value;
-    const closeIcon  = document.getElementById('close-icon-main-input')
-    const noRecipeSection = document.getElementById('no-recipes-section')
+    if(value.length >= 3) {
+      const closeIcon  = document.getElementById('close-icon-main-input')
+      const noRecipeSection = document.getElementById('no-recipes-section')
 
-    if(value.length) {
-      closeIcon.classList.remove('hidden')
-      closeIcon.classList.add('visible')
-    } else {
-      closeIcon.classList.remove('visible')
-      closeIcon.classList.add('hidden')
-      noRecipeSection.classList.remove('flex')
-      noRecipeSection.classList.add('hidden')
+      if(value.length) {
+        closeIcon.classList.remove('hidden')
+        closeIcon.classList.add('visible')
+      } else {
+        closeIcon.classList.remove('visible')
+        closeIcon.classList.add('hidden')
+        noRecipeSection.classList.remove('flex')
+        noRecipeSection.classList.add('hidden')
+      }
+      const result = filterRecipesByInput(value.toLowerCase());
+      if(!result.length) {
+        noRecipeSection.classList.remove('hidden')
+        noRecipeSection.classList.add('flex')
+      }
+      buildRecipes(result);
+    }  else {
+      buildRecipes();
     }
-    const result = filterRecipesByInput(value.toLowerCase());
-    if(!result.length) {
-      noRecipeSection.classList.remove('hidden')
-      noRecipeSection.classList.add('flex')
-    }
-    buildRecipes(result);
+
   };
 
   const onIngredientsInputChange = (e) => {
@@ -300,7 +305,6 @@ const recipesFactory = (recipes) => {
   };
 
   const buildAppliancesTagsByRecipes = (recipes = _recipes) => {
-    console.log(recipes)
     let appliances = getAllAppliances(recipes);
     _filteredAppliances = appliances
     const tagsElement = document.getElementById("tags-appliances");
