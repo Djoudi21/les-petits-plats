@@ -118,30 +118,22 @@ const recipesFactory = (recipes) => {
 
   /* HANDLERS */
   const onInputChange = (e) => {
+    const recipeContainer = document.getElementById('recipes-container')
     const value = e.target.value;
-    if(value.length >= 3) {
-      const closeIcon  = document.getElementById('close-icon-main-input')
-      const noRecipeSection = document.getElementById('no-recipes-section')
-
-      if(value.length) {
-        closeIcon.classList.remove('hidden')
-        closeIcon.classList.add('visible')
-      } else {
-        closeIcon.classList.remove('visible')
-        closeIcon.classList.add('hidden')
-        noRecipeSection.classList.remove('flex')
-        noRecipeSection.classList.add('hidden')
-      }
-      const result = filterRecipesByInput(value.toLowerCase());
-      if(!result.length) {
-        noRecipeSection.classList.remove('hidden')
-        noRecipeSection.classList.add('flex')
-      }
-      buildRecipes(result);
-    }  else {
-      buildRecipes();
+    !value.length ? hideMainInputCloseIcon() : showMainInputCloseIcon()
+    const result = filterRecipesByInput(value.toLowerCase());
+    if(!result.length) {
+      recipeContainer.innerHTML = ''
+      buildNoRecipesSection();
+      showNoRecipeSection()
+      buildRecipesNumber([])
+    } else if(value.length >= 3) {
+      hideNoRecipeSection()
+      buildRecipes(result)
+    } else {
+      hideNoRecipeSection()
+      buildRecipes()
     }
-
   };
 
   const onIngredientsInputChange = (e) => {
@@ -186,7 +178,7 @@ const recipesFactory = (recipes) => {
     buildTagsByFilteredRecipes()
     buildTagUi();
     resetFilterInput('ingredients-input')
-    hideCloseIcon('close-icon-ingredient-tag-input')
+    hideFilterTagCloseIcon('close-icon-ingredient-tag-input')
   };
 
   const onApplianceTagClick = (e, appliance) => {
@@ -194,7 +186,7 @@ const recipesFactory = (recipes) => {
     buildTagsByFilteredRecipes()
     buildTagUi();
     resetFilterInput('appliances-input')
-    hideCloseIcon('close-icon-appliance-tag-input')
+    hideFilterTagCloseIcon('close-icon-appliance-tag-input')
   };
 
   const onUstetnsilTagClick = (e, ustensil) => {
@@ -202,7 +194,7 @@ const recipesFactory = (recipes) => {
     buildTagsByFilteredRecipes()
     buildTagUi();
     resetFilterInput('ustensils-input')
-    hideCloseIcon('close-icon-ustensil-tag-input')
+    hideFilterTagCloseIcon('close-icon-ustensil-tag-input')
   };
 
   const onRemoveTag = (type, value) => {
@@ -218,11 +210,6 @@ const recipesFactory = (recipes) => {
     }
     buildRecipes(result);
   };
-
-  const onSettingInputValue = () => {
-    const mainInput = document.getElementById('main-search-input')
-    mainInput.value = ''
-  }
 
   const resetFilterInput = (filterId) => {
     const filter = document.getElementById(filterId)
@@ -393,7 +380,7 @@ const recipesFactory = (recipes) => {
     } else {
       recipesNumber.innerText = ''
       if(recipes.length === 0 ) {
-        recipesNumber.innerHTML = `0 recette`
+        recipesNumber.innerHTML = `0 recettes`
       } else if(recipes.length === 1) {
         recipesNumber.innerHTML = `${recipes.length} recette`
       } else {
@@ -404,8 +391,8 @@ const recipesFactory = (recipes) => {
   }
 
   const buildRecipes = (recipes = _recipes) => {
-    const recipeContainer = document.getElementById("recipes-container");
-    recipeContainer.innerHTML = "";
+    const recipesContainer = document.getElementById("recipes-container");
+    recipesContainer.innerHTML = "";
 
     let rowContainer = document.createElement("div");
     rowContainer.classList.add("row", "row-cols-3", "g-5");
@@ -447,6 +434,7 @@ const recipesFactory = (recipes) => {
                 </div>
             </div>`;
       rowContainer.append(recipeContainer);
+      recipesContainer.append(rowContainer)
     });
 
     // Set tags list and recipes number based on recipes
@@ -454,22 +442,18 @@ const recipesFactory = (recipes) => {
     buildAppliancesTagsByRecipes(recipes)
     buildUstensilsTagsByRecipes(recipes)
     buildRecipesNumber(recipes)
+  };
 
-    // set ui if no recipes has been filtered
-    if(recipes.length) {
-      recipeContainer.appendChild(div);
-    } else {
+
+  const buildNoRecipesSection = () => {
       const noRecipesSection = document.getElementById('no-recipes-section')
       noRecipesSection.innerHTML = ''
-      const recipesSection = document.getElementById('recipes-section')
       const paragraph = document.createElement('p')
       paragraph.classList.add('text')
       const mainInput = document.getElementById('main-search-input')
       paragraph.innerText = `Aucune recette ne contient "${mainInput.value}" vous pouvez chercher tarte aux pommes », « poisson », etc.`
       noRecipesSection.append(paragraph)
-      recipesSection.parentNode.insertBefore(noRecipesSection, recipesSection.nextSibling)
-    }
-  };
+  }
 
   const buildTagsByFilteredRecipes = () => {
     const result = filterRecipesByTag();
@@ -479,17 +463,47 @@ const recipesFactory = (recipes) => {
     buildUstensilsTagsByRecipes(result);
   }
 
-  const hideCloseIcon = (closeIconId) => {
+  const hideFilterTagCloseIcon = (closeIconId) => {
     const closeIcon = document.getElementById(closeIconId)
     closeIcon.classList.remove('visible')
     closeIcon.classList.add('hidden')
+  }
+
+  const hideMainInputCloseIcon = () => {
+    const closeIcon = document.getElementById('close-icon-main-input')
+    closeIcon.classList.remove('visible')
+    closeIcon.classList.add('hidden')
+  }
+
+  const showMainInputCloseIcon = () => {
+    const closeIcon = document.getElementById('close-icon-main-input')
+    closeIcon.classList.remove('hidden')
+    closeIcon.classList.add('visible')
+  }
+
+  const hideNoRecipeSection = () => {
+    const noRecipeSection = document.getElementById('no-recipes-section')
+    noRecipeSection.classList.remove('flex')
+    noRecipeSection.classList.add('hidden')
+  }
+
+  const showNoRecipeSection = () => {
+    const noRecipeSection = document.getElementById('no-recipes-section')
+    noRecipeSection.classList.remove('hidden')
+    noRecipeSection.classList.add('flex')
   }
 
   document.getElementById('ingredients-input').addEventListener('input',onIngredientsInputChange);
   document.getElementById('appliances-input').addEventListener('input',onAppliancesInputChange);
   document.getElementById('ustensils-input').addEventListener('input',onUstensilsInputChange);
   document.getElementById('main-search-input').addEventListener('input', onInputChange)
-  document.getElementById('close-icon-main-input').addEventListener('click', onSettingInputValue)
+  document.getElementById('close-icon-main-input').addEventListener('click', (e) => {
+    const mainInput = document.getElementById('main-search-input')
+    mainInput.value = ''
+    hideMainInputCloseIcon()
+    hideNoRecipeSection()
+    buildRecipes();
+  })
 
   const init = () => {
     buildIngredientsTagsByRecipes();
