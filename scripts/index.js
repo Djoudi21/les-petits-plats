@@ -23,7 +23,6 @@ const recipesFactory = (recipes) => {
 
   const filterRecipesByTag = (tags = _tags) => {
     let result = _recipes;
-    /* filter by ingredients */
     tags.ingredients.forEach((_ingredient) => {
       result = result.filter((recipe) =>
         recipe.ingredients.some((ingredient) =>
@@ -147,7 +146,6 @@ const recipesFactory = (recipes) => {
 
   const onIngredientsInputChange = (e) => {
     onToggleCloseIcon(e, 'close-icon-ingredient-tag-input', 'ingredients-input')
-
     const value = e.target.value;
     const result = filterIngredientTagsByInput(value.toLowerCase());
     buildIngredientsTagsByFilteredTags(result)
@@ -155,7 +153,6 @@ const recipesFactory = (recipes) => {
 
   const onAppliancesInputChange = (e) => {
     onToggleCloseIcon(e, 'close-icon-appliance-tag-input', 'appliances-input')
-
     const value = e.target.value;
     const result = filterApplianceTagsByInput(value.toLowerCase());
     buildAppliancesTagsByFilteredTags(result)
@@ -163,50 +160,49 @@ const recipesFactory = (recipes) => {
 
   const onUstensilsInputChange = (e) => {
     onToggleCloseIcon(e, 'close-icon-ustensil-tag-input', 'ustensils-input')
-
     const value = e.target.value;
     const result = filterUstensilTagsByInput(value.toLowerCase());
     buildUstensilsTagsByFilteredTags(result)
   }
 
-  const onToggleCloseIcon = (e, id, elToDelete) => {
-    const el = document.getElementById(id)
-    el.addEventListener('click', () => {
-      const inputToDelete = document.getElementById(elToDelete)
-      inputToDelete.value = ''
-      el.classList.remove('visible')
-      el.classList.add('hidden')
+  const onToggleCloseIcon = (e, closeIconId, inputToReset) => {
+    const closeIcon = document.getElementById(closeIconId)
+    closeIcon.addEventListener('click', (e) => {
+      resetFilterInput(inputToReset)
+      buildTagsByFilteredRecipes()
+      closeIcon.classList.remove('visible')
+      closeIcon.classList.add('hidden')
     })
-    if(e.target.value.length > 0) {
-      el.classList.remove('hidden')
-      el.classList.add('visible')
+    if(e.target.value.length > 0 || closeIcon.value.length > 0) {
+      closeIcon.classList.remove('hidden')
+      closeIcon.classList.add('visible')
     }
+
   }
 
   // ---------------   TAGS EVENT HANDLER ----------------->
   const onIngredientTagClick = (e, ingredient) => {
     _tags.ingredients.push(ingredient);
-    const result = filterRecipesByTag();
-    buildRecipes(result);
-    buildIngredientsTagsByRecipes(result);
+    buildTagsByFilteredRecipes()
     buildTagUi();
+    resetFilterInput('ingredients-input')
+    hideCloseIcon('close-icon-ingredient-tag-input')
   };
 
   const onApplianceTagClick = (e, appliance) => {
     _tags.appliances.push(appliance);
-    const result = filterRecipesByTag();
-    buildRecipes(result);
-
-    buildAppliancesTagsByRecipes(result);
+    buildTagsByFilteredRecipes()
     buildTagUi();
+    resetFilterInput('appliances-input')
+    hideCloseIcon('close-icon-appliance-tag-input')
   };
 
   const onUstetnsilTagClick = (e, ustensil) => {
     _tags.ustensils.push(ustensil);
-    const result = filterRecipesByTag();
-    buildRecipes(result);
-    buildUstensilsTagsByRecipes(result);
+    buildTagsByFilteredRecipes()
     buildTagUi();
+    resetFilterInput('ustensils-input')
+    hideCloseIcon('close-icon-ustensil-tag-input')
   };
 
   const onRemoveTag = (type, value) => {
@@ -227,6 +223,11 @@ const recipesFactory = (recipes) => {
     const mainInput = document.getElementById('main-search-input')
     mainInput.value = ''
   }
+
+  const resetFilterInput = (filterId) => {
+    const filter = document.getElementById(filterId)
+    filter.value = ''
+  }
   // ---------------   TAGS EVENT HANDLER ----------------->
 
 
@@ -237,8 +238,8 @@ const recipesFactory = (recipes) => {
     tagsContainer.innerHTML = "";
     _tags.ingredients.forEach((ingredient) => {
       const tag = document.createElement("div");
-      const closingIcon = document.createElement('span')
-      closingIcon.innerText = 'tu'
+      const closingIcon = document.createElement('img')
+      closingIcon.setAttribute('src', '../assets/images/close-icon.svg')
       closingIcon.classList.add('closing-icon')
       closingIcon.addEventListener("click", () =>
               onRemoveTag("ingredients", ingredient)
@@ -251,8 +252,8 @@ const recipesFactory = (recipes) => {
 
     _tags.appliances.forEach((appliance) => {
       const tag = document.createElement("div");
-      const closingIcon = document.createElement('span')
-      closingIcon.innerText = 'tu'
+      const closingIcon = document.createElement('img')
+      closingIcon.setAttribute('src', '../assets/images/close-icon.svg')
       closingIcon.classList.add('closing-icon')
       closingIcon.addEventListener("click", () =>
           onRemoveTag("appliances", appliance)
@@ -265,8 +266,8 @@ const recipesFactory = (recipes) => {
 
     _tags.ustensils.forEach((ustensil) => {
       const tag = document.createElement("div");
-      const closingIcon = document.createElement('span')
-      closingIcon.innerText = 'tu'
+      const closingIcon = document.createElement('img')
+      closingIcon.setAttribute('src', '../assets/images/close-icon.svg')
       closingIcon.classList.add('closing-icon')
       closingIcon.addEventListener("click", () =>
           onRemoveTag("ustensils", ustensil)
@@ -292,18 +293,6 @@ const recipesFactory = (recipes) => {
     });
   };
 
-  const buildIngredientsTagsByFilteredTags = (filteredIngredients = _filteredIngredients) => {
-    const tagsElement = document.getElementById("tags-ingredients");
-    tagsElement.innerHTML = "";
-    filteredIngredients.forEach((ingredient) => {
-      tagsElement.append(
-          buildTag("ingredients", ingredient, (e) =>
-              onIngredientTagClick(e, ingredient)
-          )
-      );
-    });
-  };
-
   const buildAppliancesTagsByRecipes = (recipes = _recipes) => {
     let appliances = getAllAppliances(recipes);
     _filteredAppliances = appliances
@@ -313,6 +302,32 @@ const recipesFactory = (recipes) => {
       tagsElement.append(
           buildTag("appliances", appliance, (e) =>
               onApplianceTagClick(e, appliance)
+          )
+      );
+    });
+  };
+
+  const buildUstensilsTagsByRecipes = (recipes = _recipes) => {
+    let ustensils = getAllUstensils(recipes);
+    _filteredUstensils = ustensils
+    const tagsElement = document.getElementById("tags-ustensils");
+    tagsElement.innerHTML = "";
+    ustensils.forEach((ustensil) => {
+      tagsElement.append(
+          buildTag("ustensils", ustensil, (e) =>
+              onUstetnsilTagClick(e, ustensil)
+          )
+      );
+    });
+  };
+
+  const buildIngredientsTagsByFilteredTags = (filteredIngredients = _filteredIngredients) => {
+    const tagsElement = document.getElementById("tags-ingredients");
+    tagsElement.innerHTML = "";
+    filteredIngredients.forEach((ingredient) => {
+      tagsElement.append(
+          buildTag("ingredients", ingredient, (e) =>
+              onIngredientTagClick(e, ingredient)
           )
       );
     });
@@ -342,30 +357,19 @@ const recipesFactory = (recipes) => {
     });
   };
 
-
-  const buildUstensilsTagsByRecipes = (recipes = _recipes) => {
-    let ustensils = getAllUstensils(recipes);
-    const tagsElement = document.getElementById("tags-ustensils");
-    tagsElement.innerHTML = "";
-    ustensils.forEach((ustensil) => {
-      tagsElement.append(
-          buildTag("ustensils", ustensil, (e) =>
-              onUstetnsilTagClick(e, ustensil)
-          )
-      );
-    });
-  };
-
   const buildTag = (type, content, onClick) => {
-    if (_tags[type].includes(content)) {
-      return ''
-    }
     const tagContainer = document.createElement("li");
     const tagElement = document.createElement("a");
     tagElement.classList.add(`dropdown-item-${type}`);
     tagElement.textContent = content;
     tagElement.addEventListener("click", onClick);
     tagContainer.appendChild(tagElement);
+
+    if (_tags[type].includes(content)) {
+      tagElement.removeEventListener("click", onClick);
+      tagElement.classList.add('disabled');
+
+    }
     return tagContainer;
   };
   // ---------------   INGREDIENTS/APPLIANCES/USTENSILS LISTS ----------------->
@@ -467,6 +471,20 @@ const recipesFactory = (recipes) => {
     }
   };
 
+  const buildTagsByFilteredRecipes = () => {
+    const result = filterRecipesByTag();
+    buildRecipes(result);
+    buildIngredientsTagsByRecipes(result);
+    buildAppliancesTagsByRecipes(result);
+    buildUstensilsTagsByRecipes(result);
+  }
+
+  const hideCloseIcon = (closeIconId) => {
+    const closeIcon = document.getElementById(closeIconId)
+    closeIcon.classList.remove('visible')
+    closeIcon.classList.add('hidden')
+  }
+
   document.getElementById('ingredients-input').addEventListener('input',onIngredientsInputChange);
   document.getElementById('appliances-input').addEventListener('input',onAppliancesInputChange);
   document.getElementById('ustensils-input').addEventListener('input',onUstensilsInputChange);
@@ -475,6 +493,8 @@ const recipesFactory = (recipes) => {
 
   const init = () => {
     buildIngredientsTagsByRecipes();
+    buildAppliancesTagsByRecipes()
+    buildUstensilsTagsByRecipes()
     buildRecipes();
   };
 

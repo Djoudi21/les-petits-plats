@@ -45,3 +45,7 @@
 .text {
     font-size: 1.5rem;
 }
+
+.disabled {
+    color: lightgray !important;
+}
