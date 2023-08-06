@@ -1,5 +1,4 @@
 export const useFilter = (_recipes, _tags, _filteredIngredients, _filteredAppliances, _filteredUstensils) => {
-    console.log(_recipes)
     const filterRecipesByInput = (searchValue) => {
         return _recipes.filter(
             (recipe) =>

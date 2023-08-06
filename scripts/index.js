@@ -1,5 +1,6 @@
 import {getAllRecipes} from "./api.js";
 import {useFilter} from "./filter.js";
+import {useGetter} from "./getter.js";
 const recipesFactory = (recipes) => {
   const _recipes = recipes;
   const _tags = { ingredients: [], appliances: [], ustensils: [] };
@@ -8,48 +9,7 @@ const recipesFactory = (recipes) => {
   let _filteredAppliances = []
   let _filteredUstensils = []
   const filter = useFilter(_recipes, _tags, _filteredIngredients, _filteredAppliances, _filteredUstensils)
-
-
-  // ---------------   GET ALL  ----------------->
-  const getAllIngredients = (recipes = _recipes) => {
-    const _ingredients = [];
-
-    recipes.map((recipe) => {
-      recipe.ingredients.map((ingredient) => {
-        if (!_ingredients.includes(ingredient.ingredient.toLowerCase())) {
-          _ingredients.push(ingredient.ingredient.toLowerCase());
-        }
-      });
-    });
-
-    return _ingredients;
-  };
-
-  const getAllAppliances = (recipes = _recipes) => {
-    const _appliances = [];
-
-    recipes.map((recipe) => {
-      if (!_appliances.includes(recipe.appliance.toLowerCase())) {
-        _appliances.push(recipe.appliance.toLowerCase());
-      }
-    })
-    return _appliances;
-  };
-
-  const getAllUstensils = (recipes = _recipes) => {
-    const _ustensils = [];
-
-    recipes.map((recipe) => {
-      recipe.ustensils.map((ustensil) => {
-        if (!_ustensils.includes(ustensil.toLowerCase())) {
-          _ustensils.push(ustensil.toLowerCase());
-        }
-      });
-    });
-    return _ustensils;
-  };
-  // ---------------   GET ALL  ----------------->
-
+  const getter = useGetter(_recipes)
 
   /* HANDLERS */
   const onInputChange = (e) => {
@@ -213,7 +173,7 @@ const recipesFactory = (recipes) => {
   };
 
   const buildIngredientsTagsByRecipes = (recipes = _recipes) => {
-    let ingredients = getAllIngredients(recipes);
+    let ingredients = getter.getAllIngredients(recipes);
     _filteredIngredients = ingredients
     const tagsElement = document.getElementById("tags-ingredients");
     tagsElement.innerHTML = "";
@@ -227,7 +187,7 @@ const recipesFactory = (recipes) => {
   };
 
   const buildAppliancesTagsByRecipes = (recipes = _recipes) => {
-    let appliances = getAllAppliances(recipes);
+    let appliances = getter.getAllAppliances(recipes);
     _filteredAppliances = appliances
     const tagsElement = document.getElementById("tags-appliances");
     tagsElement.innerHTML = "";
@@ -241,7 +201,7 @@ const recipesFactory = (recipes) => {
   };
 
   const buildUstensilsTagsByRecipes = (recipes = _recipes) => {
-    let ustensils = getAllUstensils(recipes);
+    let ustensils = getter.getAllUstensils(recipes);
     _filteredUstensils = ustensils
     const tagsElement = document.getElementById("tags-ustensils");
     tagsElement.innerHTML = "";
