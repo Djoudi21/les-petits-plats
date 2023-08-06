@@ -201,33 +201,30 @@ const recipesFactory = (recipes) => {
     const mainInputValue = document.getElementById('main-search-input').value
     _tags[type] = _tags[type].filter((tag) => tag !== value);
     buildTagUi();
-    if(!mainInputValue.length) {
-      const result = filterRecipesByTag();
-      if (type === "ingredients") {
-        buildIngredientsTagsByRecipes();
-      } else if(type === "appliances") {
-        buildAppliancesTagsByRecipes();
-      } else {
-        buildUstensilsTagsByRecipes();
-      }
-      buildRecipes(result);
-    } else {
+    let result
+    if(mainInputValue.length) {
       const recipes = filterRecipesByInput(mainInputValue)
-      const result = filterRecipesByTag(_tags , recipes);
-      if (type === "ingredients") {
-        buildIngredientsTagsByRecipes();
-      } else if(type === "appliances") {
-        buildAppliancesTagsByRecipes();
-      } else {
-        buildUstensilsTagsByRecipes();
-      }
-      buildRecipes(result);
+      result = filterRecipesByTag(_tags , recipes);
+    } else {
+      result = filterRecipesByTag();
     }
+    buildTagsByRecipesAndTagType(type)
+    buildRecipes(result);
   };
 
   const resetFilterInput = (filterId) => {
     const filter = document.getElementById(filterId)
     filter.value = ''
+  }
+
+  const buildTagsByRecipesAndTagType = (type) => {
+    if (type === "ingredients") {
+      buildIngredientsTagsByRecipes();
+    } else if(type === "appliances") {
+      buildAppliancesTagsByRecipes();
+    } else {
+      buildUstensilsTagsByRecipes();
+    }
   }
   // ---------------   TAGS EVENT HANDLER ----------------->
 
