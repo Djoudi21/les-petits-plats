@@ -21,8 +21,8 @@ const recipesFactory = (recipes) => {
     );
   };
 
-  const filterRecipesByTag = (tags = _tags) => {
-    let result = _recipes;
+  const filterRecipesByTag = (tags = _tags, recipes = _recipes) => {
+    let result = recipes;
     tags.ingredients.forEach((_ingredient) => {
       result = result.filter((recipe) =>
         recipe.ingredients.some((ingredient) =>
@@ -198,17 +198,31 @@ const recipesFactory = (recipes) => {
   };
 
   const onRemoveTag = (type, value) => {
+    const mainInputValue = document.getElementById('main-search-input').value
     _tags[type] = _tags[type].filter((tag) => tag !== value);
     buildTagUi();
-    const result = filterRecipesByTag();
-    if (type === "ingredients") {
-      buildIngredientsTagsByRecipes();
-    } else if(type === "appliances") {
-      buildAppliancesTagsByRecipes();
+    if(!mainInputValue.length) {
+      const result = filterRecipesByTag();
+      if (type === "ingredients") {
+        buildIngredientsTagsByRecipes();
+      } else if(type === "appliances") {
+        buildAppliancesTagsByRecipes();
+      } else {
+        buildUstensilsTagsByRecipes();
+      }
+      buildRecipes(result);
     } else {
-      buildUstensilsTagsByRecipes();
+      const recipes = filterRecipesByInput(mainInputValue)
+      const result = filterRecipesByTag(_tags , recipes);
+      if (type === "ingredients") {
+        buildIngredientsTagsByRecipes();
+      } else if(type === "appliances") {
+        buildAppliancesTagsByRecipes();
+      } else {
+        buildUstensilsTagsByRecipes();
+      }
+      buildRecipes(result);
     }
-    buildRecipes(result);
   };
 
   const resetFilterInput = (filterId) => {
@@ -456,7 +470,9 @@ const recipesFactory = (recipes) => {
   }
 
   const buildTagsByFilteredRecipes = () => {
-    const result = filterRecipesByTag();
+    const mainInputValue = document.getElementById('main-search-input').value
+    const recipes = filterRecipesByInput(mainInputValue)
+    const result = filterRecipesByTag(_tags, recipes);
     buildRecipes(result);
     buildIngredientsTagsByRecipes(result);
     buildAppliancesTagsByRecipes(result);
